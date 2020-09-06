@@ -1,2 +1,2 @@
 # ImageProcessingLibrary
-Image Processing Library in C#
+Image Processing Library in C++
