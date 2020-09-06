@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -174,33 +175,242 @@ void ImageProcessing::computeHistogram2(unsigned char * _imgData, int imgRows, i
     fclose(fptr);
 }
 
-void ImageProcessing::equalizeHistogram(unsigned char * _inputImgData, unsigned char * _outputImgData, int imgRows, int imgCols) {
-    int x, y, i, j;
+void ImageProcessing::equalizeHistogram(unsigned char * _inputImgData, unsigned char * _outputImgData, int imgRows, int imgCols)
+{
+    int x,y,i,j;
     int histeq[256];
     float hist[256];
-    float sum;
+    float sum ;
 
-    const char initHist[] = "init_hist.txt";
+    const char initHist[] ="init_hist.txt";
     const char finalHist[] = "final_hist.txt";
 
-    computeHistogram2(&_inputImgData[0], imgRows, imgCols, &hist[0], initHist);
-    for (i = 0; i <= 255; i++) {
-        sum = 0.0;
-        for (j = 0; j <= i; j++) {
-            sum = sum + hist[j];
+    computeHistogram2(&_inputImgData[0],imgRows,imgCols,&hist[0],initHist);
+    for(i =0;i<=255;i++)
+    {
+        sum =0.0;
+        for(j=0;j<=i;j++){
+            sum = sum+hist[j];
         }
-        histeq[i] = (int) (255 * sum + 0.5);
+        histeq[i] =  (int)(255*sum+0.5);
 
     }
-    for (y = 0; y < imgRows; y++) {
-        for (x = 0; x < imgCols; x++) {
-            *(_outputImgData + x + y * imgCols) = histeq[*(_inputImgData + x + y * imgCols)];
+    for(y =0;y<imgRows;y++)
+    {
+        for(x=0;x<imgCols;x++)
+        {
+            *(_outputImgData+x+y*imgCols) = histeq[*(_inputImgData+x+y*imgCols)];
         }
     }
-    computeHistogram2(&_outputImgData[0], imgRows, imgCols, &hist[0], finalHist);
+    computeHistogram2(&_outputImgData[0], imgRows,imgCols,&hist[0],finalHist);
+}
+
+void ImageProcessing::getImageNegative(unsigned char *_inImgData, unsigned char * _outImgData,int imgWidth,int imgHeight)
+{
+
+    for(int i =0;i<imgHeight;i++)
+    {
+        for(int j=0;j<imgWidth;j++){
+            _outImgData[i*imgWidth+j ]  = 255 - _inImgData[i*imgWidth+j];
+        }
+    }
+}
+
+void ImageProcessing::Convolve2D(int imgRows, int imgCols, struct Mask *myMask, unsigned char *input_buf, unsigned char *output_buf)
+{
+    long i,j,m,n,idx,jdx;
+    int ms,im,val;
+    unsigned char *tmp;
+
+    //the outer summation loop
+    for(i =0;i<imgRows;++i)
+        for(j =0;j<imgCols;++j){
+            val =0;
+            for(m=0;m<myMask->Rows;++m)
+                for(n=0;n<myMask->Cols;++n){
+                    ms = (signed char)*(myMask->Data+ m*myMask->Rows+n);
+                    idx = i-m;
+                    jdx = j-n;
+                    if(idx>=0 && jdx >=0)
+                        im = *(input_buf+idx*imgRows+jdx);
+                    val +=ms*im;
+                }
+            if(val >255) val =255;
+            if(val <0)val =0;
+            tmp =output_buf + i*imgRows +j;
+            *tmp =(unsigned char)val;
+
+        }
+
+}
+
+void  ImageProcessing::detectLine(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows, const int MASK[][3])
+{
+
+    int x,y,i,j,sum;
+    for(y=1;y<=imgRows-1;y++)
+    {
+        for(x=1;x<=imgCols;x++)
+        {
+            sum =0;
+            for(i=-1;i<=1;i++)
+            {
+                for(j=-1;j<=1;j++)
+                {
+                    sum = sum + *(_inputImgData+x+i+(long)(y+j)*imgCols)*MASK[i+1][j+1];
+                }
+            }
+            if(sum >255) sum = 255;
+            if(sum<0)sum =0;
+            *(_outputImgData+x+(long)y*imgCols) =sum ;
+        }
+    }
+}
+
+void ImageProcessing::setMask(int mskRows, int mskCols, const int mskData[])
+{
+    signed char * tmp;
+    int requiredSize;
+
+    myMask.Rows  = mskRows;
+    myMask.Cols  = mskCols;
+    requiredSize =  myMask.Rows * myMask.Cols;
+    myMask.Data =  (unsigned char *)malloc(requiredSize);
+
+    tmp = (signed char *)myMask.Data;
+
+    for(int i = 0;i<requiredSize;i++)
+    {
+        *tmp =  mskData[i];
+        ++tmp;
+
+    }
+
+}
+
+void ImageProcessing::generateGaussNoise(unsigned char*_inputImgData, int imgCols, int imgRows, float var, float mean)
+{
+    int x,y;
+    float theta,noise;
+    for(y =0;y<imgRows;y++)
+        for(x=0;x<imgCols;x++)
+        {
+            noise  = sqrt(-2*var*log(1.0-(float)rand()/32767.1));
+            theta  =  (float)rand()* 1.9175345e-4 - 3.14159265;
+            noise = noise * cos(theta);
+            noise =  noise + mean;
+            if(noise > 255) noise = 255;
+            if(noise< 0) noise =0;
+            *(_inputImgData+x+(long)y*imgCols) = (unsigned char)(noise +0.5);
+        }
+}
+
+void ImageProcessing::saltAndPepper(unsigned char *_inputImgData, int imgCols, int imgRows, float prob)
+{
+    int x,y,data1,data2,data;
+    data = (int)(prob*32768/2);
+    data1 = data +16384;
+    data2 =  16384 - data;
+
+    for(y =0;y<imgRows;y++)
+        for(x=0;x<imgCols;x++)
+        {
+            data = rand();
+            if(data >= 16384 && data< data1)
+                *(_inputImgData+x+(long)y*imgCols) =0;
+            if(data>=data2&& data<16384)
+                *(_inputImgData+x+(long)y*imgCols) =255;
+        }
+
+
+}
+void ImageProcessing::maximumFilter(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols,int imgRows)
+{
+    int x,y,i,j,smax,n;
+    int a[11][11];
+    n =3;
+    n =3;
+    for(y = n/2; y<imgCols-n/2;y++)
+    {
+        for(x = n/2;x<imgCols-n/2;x++)
+        {
+            smax =0;
+            for(j=-n/2;j<=n/2;j++)
+                for(i=-n/2;i<=n/2;i++){
+                    a[i+n/2][j+n/2] = *(_inputImgData+x+i+(long)(y+j)*imgCols);
+                }
+            for(j=0;j<=n-1;j++)
+            {
+                for(i =0;i<=n-1;i++)
+                {
+
+                    if(a[i][j] > smax)
+                        smax = a[i][j];
+                }
+            }
+            *(_outputImgData+x+(long)y*imgCols) = smax;
+        }
+
+    }
+
+
+}
+void ImageProcessing::medianFilter(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows)
+{
+    int x, y,i,j,z;
+    int n, ar[121],a;
+    n=7;
+
+    for(y=n/2;y<imgRows-n/2;y++)
+        for(x =n/2;x<imgCols-n/2;x++)
+        {
+            z =0;
+            for(j=-n/2;j<=n/2;j++)
+                for(i=-n/2;i<=n/2;i++)
+                {
+                    ar[z] =  *(_inputImgData+x+i+(long)(y+j)*imgCols);
+                    z++;
+                }
+
+            for(j=1;j<=n*n-1;j++)
+            {
+                a = ar[j];
+                i=j-1;
+                while(i>=0&&ar[i] >a)
+                {
+
+                    ar[i+1] =  ar[i];
+                    i =i-1;
+                }
+                ar[i+1] = a;
+            }
+            *(_outputImgData+x+(long)y*imgCols) =  ar[n*n/2];
+        }
+
+}
+
+void ImageProcessing::minimumFilter(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows) {
+    int x, y, i, j, smin, n, a[11][11];
+    n = 5;
+    for (y = n / 2; y < imgRows - n / 2; y++) {
+        for (x = n / 2; x < imgCols - n / 2; x++) {
+            smin = 255;
+            for (j = -n / 2; j <= n / 2; j++)
+                for (i = -n / 2; i <= n / 2; i++) {
+                    a[i + n / 2][j + n / 2] = *(_inputImgData + x + i + (long) (y + j) * imgCols);
+
+                }
+            for (j = 0; j <= n - 1; j++) {
+                for (i = 0; i <= n - 1; i++) {
+                    if (a[i][j] < smin)smin = a[i][j];
+                }
+            }
+            *(_outputImgData + x + (long) y * imgCols) = smin;
+        }
+    }
+
+
 }
 ImageProcessing::~ImageProcessing() {
     //dtor
 }
-
-

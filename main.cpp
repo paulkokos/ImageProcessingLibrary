@@ -30,6 +30,8 @@ int main()
     myImage->readImage();
     myImage->equalizeHistogram(imgInBuffer,imgOutBuffer,imgHeight,imgWidth);
     myImage->writeImage();
+    myImage->minimumFilter(imgInBuffer,imgOutBuffer,imgWidth,imgHeight);
+    myImage->writeImage();
 
     cout<<"Success !"<<endl;
     cout<<"Image Height : "<<imgHeight<<endl;
