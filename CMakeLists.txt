@@ -3,9 +3,7 @@ project(ImageProcessingLibrary)
 
 set(CMAKE_CXX_STANDARD 20)
 
-#set(SOURCE_FILES StandardLibraryHeaders/UtilitiesLibrary/variant/variant/variant.cpp)
-add_executable(main ${SOURCE_FILES}main.cpp ImageProcessing.cpp ImageProcessing.hpp)
-#add_subdirectory(AlgorithmsLibrary)
-#add_subdirectory(ThreadSupportLibrary)
+add_executable(main ${SOURCE_FILES} src/main.cpp src/ImageProcessing.cpp src/ImageProcessing.hpp)
+
 SET(CMAKE_CXX_FLAGS)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
