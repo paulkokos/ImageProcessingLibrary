@@ -7,5 +7,3 @@ add_executable(main ${SOURCE_FILES} src/main.cpp src/ImageProcessing.cpp src/Ima
 
 SET(CMAKE_CXX_FLAGS)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
-
