@@ -37,7 +37,7 @@ void ImageProcessing::readImage() {
     FILE *streamIn;
     streamIn = fopen(inImgName, "rb");
 
-    if (streamIn == (FILE *) 0) {
+    if (streamIn == (FILE *) nullptr) {
         cout << "Unable to open file. Maybe file does not exist" << endl;
         exit(0);
     }
