@@ -138,8 +138,7 @@ public:
 
     void Convolve2D(int imgRows, int imgCols, struct Mask *myMask, unsigned char *input_buf, unsigned char *output_buf);
 
-    void detectLine(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows,
-                    const int MASK[][3]);
+    void detectLine(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows, const int MASK[][3]);
 
     void setMask(int mskRows, int mskCols, const int mskData[]);
 
