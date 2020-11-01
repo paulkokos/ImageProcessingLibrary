@@ -14,6 +14,15 @@ static const int WHITE = MAX_COLOR;
 static const int BLACK = MIN_COLOR;
 static const int COLOR_CHANNEL_LEVELS = 255;
 
+static const int IMAGE_SIZE_512_BY_512_COLORED = 786486;
+static const int BMP_COLOR_TABLE_SIZE_COLORED = 1024;
+static const int BMP_HEADER_SIZE_COLORED = 54;
+static const int MAX_COLOR_COLORED = 255;
+static const int MIN_COLOR_COLORED = 0;
+static const int WHITE_COLORED = MAX_COLOR;
+static const int BLACK_COLORED = MIN_COLOR;
+static const int COLOR_CHANNEL_LEVELS_COLORED = 255;
+
 struct Mask {
     int Rows;
     int Cols;
@@ -152,8 +161,18 @@ public:
 
     void minimumFilter(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows);
 
-    virtual ~ImageProcessing();
+    void RGBtoRed(unsigned char *_inputImgData, unsigned  char *_outputImgData,int imgCols, int imgRows);
 
+    void RGBtoGreen(unsigned char *_inputImgData, unsigned  char *_outputImgData,int imgCols, int imgRows);
+
+    void RGBtoBlue(unsigned char *_inputImgData, unsigned  char *_outputImgData,int imgCols, int imgRows);
+
+    void readImageRGB();
+
+    void writeImageRGB(const char *outputFileName);
+
+
+    virtual ~ImageProcessing();
 
 protected:
 
@@ -167,6 +186,7 @@ private:
     unsigned char *colorTable;
     unsigned char *inBuf;
     unsigned char *outBuf;
+
 };
 
 

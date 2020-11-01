@@ -56,6 +56,29 @@ void ImageProcessing::readImage() {
 
     fread(inBuf, sizeof(unsigned char), IMAGE_SIZE_512_BY_512, streamIn);
     fclose(streamIn);
+}void ImageProcessing::readImageRGB() {
+    FILE *streamIn;
+    streamIn = fopen(inImgName, "rb");
+
+    if (streamIn == (FILE *) nullptr) {
+        cout << "Unable to open file. Maybe file does not exist" << endl;
+        exit(0);
+    }
+
+    for (int index = 0; index < BMP_HEADER_SIZE; index++) {
+        header[index] = getc(streamIn);
+    }
+
+    *width = *(int *) &header[18];           //read the width from the image header
+    *height = *(int *) &header[22];
+    *bitDepth = *(int *) &header[28];
+
+    if (*bitDepth <= 24) {
+        fread(colorTable, sizeof(unsigned char), BMP_COLOR_TABLE_SIZE, streamIn);
+    }
+
+    fread(inBuf, sizeof(unsigned char), IMAGE_SIZE_512_BY_512, streamIn);
+    fclose(streamIn);
 }
 
 void ImageProcessing::writeImage(const char *outputFileName) {
@@ -63,6 +86,18 @@ void ImageProcessing::writeImage(const char *outputFileName) {
     fwrite(header, sizeof(unsigned char), BMP_HEADER_SIZE, fo);
 
     if (*bitDepth <= 8) {
+        fwrite(colorTable, sizeof(unsigned char), BMP_COLOR_TABLE_SIZE, fo);
+    }
+
+    fwrite(outBuf, sizeof(unsigned char), IMAGE_SIZE_512_BY_512, fo);
+    fclose(fo);
+}
+
+void ImageProcessing::writeImageRGB(const char *outputFileName) {
+    FILE *fo = fopen(outputFileName, "wb");
+    fwrite(header, sizeof(unsigned char), BMP_HEADER_SIZE, fo);
+
+    if (*bitDepth <= 24) {
         fwrite(colorTable, sizeof(unsigned char), BMP_COLOR_TABLE_SIZE, fo);
     }
 
@@ -281,7 +316,8 @@ ImageProcessing::generateGaussNoise(unsigned char *_inputImgData, int imgCols, i
 }
 
 void ImageProcessing::saltAndPepper(unsigned char *_inputImgData, int imgCols, int imgRows, float prob) {
-    int x, y, data1, data2, data;
+    srand (time(NULL));
+    int x=0, y=0, data1=0, data2=0, data=0;
     data = (int) (prob * 32768 / 2);
     data1 = data + 16384;
     data2 = 16384 - data;
@@ -294,12 +330,9 @@ void ImageProcessing::saltAndPepper(unsigned char *_inputImgData, int imgCols, i
             if (data >= data2 && data < 16384)
                 *(_inputImgData + x + (long) y * imgCols) = 255;
         }
-
-
 }
 
-void
-ImageProcessing::maximumFilter(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows) {
+void ImageProcessing::maximumFilter(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows) {
     int x, y, i, j, smax, n;
     int a[11][11];
     n = 3;
@@ -380,6 +413,31 @@ ImageProcessing::minimumFilter(unsigned char *_inputImgData, unsigned char *_out
 
 }
 
+void ImageProcessing::RGBtoRed(unsigned char *_inputImgData, unsigned  char *_outputImgData,int imgCols, int imgRows) {
+    for (int i=0;i< imgCols; i++){
+        for (int j=0; j< imgRows; j++) {
+            for (int k=0;k<3;k++) {
+                if (k==0) {
+                   // _outputImgData[i * imgCols + j] =0;
+//                    *(_outputImgData +i + j+ 1) = 0;
+//                    *(_outputImgData +i + j+ 2) = 0;
+               // } else {
+                    _outputImgData[i * imgCols + j] =_inputImgData[i * imgCols + j];
+
+                }
+            }
+        }
+    }
+}
+
+void
+ImageProcessing::RGBtoGreen(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows) {
+
+}
+
+void ImageProcessing::RGBtoBlue(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows) {
+
+}
 ImageProcessing::~ImageProcessing() {
     //dtor
 }
