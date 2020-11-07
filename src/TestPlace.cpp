@@ -192,7 +192,7 @@ Image readPPM(const char *filename)
 int main(int argc, char **argv)
 {
     try {
-        Image I = readPPM("./../images/lena512.bmp");
+        Image I = readPPM("./../images/lena512color.tiff");
         Image J = readPPM("./../images/PIRGOS3b.bmp");
         int w = J.w, h = J.h;
         Image K(w, h);
