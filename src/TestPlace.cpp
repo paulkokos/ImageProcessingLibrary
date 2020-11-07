@@ -157,7 +157,7 @@ Image readPPM(const char *filename)
     Image img;
     try {
 
-        std::cout << ifs.goodbit << "\n";
+        std::cout << ifs.fail() << "\n";
         if (ifs.fail()) { throw("Can't open input file"); }
         std::string header;
         int w, h, b;
@@ -206,7 +206,7 @@ int main(int argc, char **argv)
             }
         }
         K /= total;
-        savePPM(K, "./out.ppm");
+        savePPM(K, "./../images/out.bmp");
     }
     catch (const std::exception &e) { // catch general exception (bad_alloc mainly?)
         fprintf(stderr, "Error: %s\n", e.what());
