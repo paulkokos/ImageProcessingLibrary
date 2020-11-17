@@ -14,7 +14,7 @@
  static const int   BLACK               =  MIN_COLOR;
  static const int   NO_OF_GRAYLEVELS     = 255;
 
-
+static const int    _512by512_IMG_SIZE_COLORED = 786432;
  struct Mask{
  int Rows;
  int Cols;
@@ -124,7 +124,7 @@ class ImageProcessing
         void computeHistogram(unsigned char * _imgData, int imgRows, int imgCols, float hist[]);
         void computeHistogram2(unsigned char * _imgData, int imgRows, int imgCols, float hist[],const char *histFile);
         void equalizeHistogram(unsigned char * _inputImgData, unsigned char * _outputImgData, int imgRows, int imgCols);
-        void getImageNegative(unsigned char *_inImgData, unsigned char * _outImgData,int imgWidth,int imgHeight);
+        void getImageNegative( const char *_inImgData,  char * _outImgData,int imgWidth,int imgHeight);
         void Convolve2D(int imgRows, int imgCols, struct Mask *myMask, unsigned char *input_buf, unsigned char *output_buf);
         void  detectLine(unsigned char *_inputImgData, unsigned char *_outputImgData, int imgCols, int imgRows, const int MASK[][3]);
         void setMask(int mskRows, int mskCols, const int mskData[]);

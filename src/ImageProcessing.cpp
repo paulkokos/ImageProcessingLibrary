@@ -50,10 +50,10 @@ void ImageProcessing::readImage()
     if(*bitDepth <=8)
     {
 
-        fread(colorTable,sizeof(unsigned char),BMP_COLOR_TABLE_SIZE,streamIn);
+        fread(colorTable,sizeof(unsigned char),_512by512_IMG_SIZE,streamIn);
     }
 
-    fread(inBuf,sizeof(unsigned char),_512by512_IMG_SIZE,streamIn );
+    fread(inBuf,sizeof(unsigned char),_512by512_IMG_SIZE,streamIn);
 
     fclose(streamIn);
 }
@@ -64,10 +64,11 @@ void ImageProcessing::writeImage(){
     fwrite(header,sizeof(unsigned char),BMP_HEADER_SIZE,fo);
     if(*bitDepth <=8)
     {
-        fwrite(colorTable,sizeof(unsigned char),BMP_COLOR_TABLE_SIZE,fo);
-    }
 
-   fwrite(outBuf, sizeof(unsigned char),_512by512_IMG_SIZE,fo);
+        fwrite(colorTable,sizeof(unsigned char),_512by512_IMG_SIZE,fo);
+    }
+    fwrite(outBuf, sizeof(unsigned char),_512by512_IMG_SIZE,fo);
+
    fclose(fo);
 }
 
@@ -198,7 +199,7 @@ void ImageProcessing::equalizeHistogram(unsigned char * _inputImgData, unsigned 
     computeHistogram2(&_outputImgData[0], imgRows,imgCols,&hist[0],finalHist);
 }
 
-void ImageProcessing::getImageNegative(unsigned char *_inImgData, unsigned char * _outImgData,int imgWidth,int imgHeight)
+void ImageProcessing::getImageNegative( const char *_inImgData,  char * _outImgData,int imgWidth,int imgHeight)
 {
 
     for(int i =0;i<imgHeight;i++)
