@@ -33,7 +33,10 @@ int main()
 
 
      myImage->readImage();
-    myImage->getImageNegative(reinterpret_cast<char *>(imgInBuffer), reinterpret_cast<char *>(imgOutBuffer), 512, 512);
+    myImage->getImageNegative(reinterpret_cast<char *>(imgInBuffer),
+                              reinterpret_cast<char *>(imgOutBuffer),
+                              512,
+                              512);
 //          myImage->minimumFilter(imgInBuffer,imgOutBuffer,imgWidth,imgHeight);
      myImage->writeImage();
      cout<<"Success !"<<endl;
