@@ -1,0 +1,14 @@
+//
+// Created by paulkokos on 7/2/21.
+//
+
+#ifndef IMAGEPROCESSINGLIBRARY_IMAGE_HPP
+#define IMAGEPROCESSINGLIBRARY_IMAGE_HPP
+
+
+class Image {
+
+};
+
+
+#endif //IMAGEPROCESSINGLIBRARY_IMAGE_HPP

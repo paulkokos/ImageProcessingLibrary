@@ -67,7 +67,7 @@ int main() {
     cout << "Success !" << endl;
     cout << "Image Height : " << imgHeight << endl;
     cout << "Image Width  : " << imgWidth << endl;
-    //system("gnuplot");
+//    system("gnuplot");
 
     return 0;
 }
