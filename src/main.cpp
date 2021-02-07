@@ -3,17 +3,16 @@
 
 using namespace std;
 
-int main() {
-    int imgWidth, imgHeight, imgBitDepth,imgBitDepthRGB;
+int main()
+{
+
+
+    int imgWidth, imgHeight, imgBitDepth;
     unsigned char imgHeader[BMP_HEADER_SIZE];
     unsigned char imgColorTable[BMP_COLOR_TABLE_SIZE];
-    unsigned char imgInBuffer[IMAGE_SIZE_512_BY_512];
-    unsigned char imgOutBuffer[IMAGE_SIZE_512_BY_512];
+    unsigned char imgInBuffer[_512by512_IMG_SIZE];
+    unsigned char imgOutBuffer[_512by512_IMG_SIZE];
 
-    unsigned char imgHeaderRGB[BMP_HEADER_SIZE_COLORED];
-    unsigned char imgColorTableRGB[BMP_COLOR_TABLE_SIZE_COLORED];
-    unsigned char imgInBufferRGB[IMAGE_SIZE_512_BY_512_COLORED];
-    unsigned char imgOutBufferRGB[IMAGE_SIZE_512_BY_512_COLORED];
 
     const char imgName[] = "./../images/lena512.bmp";
     const char newImgName[] = "./../images/lena_eqz.bmp";
