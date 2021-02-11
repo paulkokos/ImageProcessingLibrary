@@ -3,7 +3,6 @@ project(ImageProcessingLibrary)
 
 set(CMAKE_CXX_STANDARD 20)
 
-<<<<<<<<< Temporary merge branch 1
 add_executable(main ${SOURCE_FILES} src/main.cpp src/ImageProcessing.cpp src/ImageProcessing.hpp)
 add_subdirectory(libs)
 
