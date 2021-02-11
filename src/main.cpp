@@ -43,6 +43,8 @@ int main()
 
     myImage->readImage();
     //myImage_color->readImageRGB();
+
+
     myImage->generateGaussNoise(imgInBuffer,imgWidth,imgHeight,0,1);
     myImage->writeImage();
 //    myImage_color->RGBtoRed(imgInBufferRGB,imgOutBufferRGB,imgWidth,imgHeight);
