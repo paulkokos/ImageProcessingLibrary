@@ -42,11 +42,11 @@ int main()
 //    );
 
     myImage->readImage();
-    //myImage_color->readImageRGB();
-    //myImage->generateGaussNoise(imgInBuffer,imgWidth,imgHeight,0,1);
-   // myImage->writeImage("./../images/lena_Gaussian_noise.bmp");
-    //myImage_color->RGBtoRed(imgInBufferRGB,imgOutBufferRGB,imgWidth,imgHeight);
-    //myImage_color->writeImageRGB("./../images/lena_RED.bmp");
+//    myImage_color->readImageRGB();
+//    myImage->generateGaussNoise(imgInBuffer,imgWidth,imgHeight,0,1);
+//    myImage->writeImage("./../images/lena_Gaussian_noise.bmp");
+//    myImage_color->RGBtoRed(imgInBufferRGB,imgOutBufferRGB,imgWidth,imgHeight);
+//    myImage_color->writeImageRGB("./../images/lena_RED.bmp");
 
     myImage->saltAndPepper(imgInBuffer,imgHeight,imgWidth,0);
     myImage->writeImage("./../images/lena_saltAndPepper.bmp");
@@ -54,8 +54,8 @@ int main()
     myImage->getImageNegative(imgInBuffer,imgOutBuffer,imgWidth,imgHeight);
     myImage->writeImage("./../images/lena_Negative.bmp");
 
-    myImage->binarizeImage(imgInBuffer,imgOutBuffer,IMAGE_SIZE_512_BY_512,128);
-    myImage->writeImage("./../images/lena_binarized.bmp");
+//    myImage->binarizeImage(imgInBuffer,imgOutBuffer,IMAGE_SIZE_512_BY_512,128);
+//    myImage->writeImage("./../images/lena_binarized.bmp");
 
     myImage->equalizeHistogram(imgInBuffer, imgOutBuffer, imgHeight, imgWidth);
     myImage->writeImage("./../images/lena_eqz.bmp");
