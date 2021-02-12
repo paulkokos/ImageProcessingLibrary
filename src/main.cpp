@@ -54,6 +54,7 @@ int main()
     myImage->getImageNegative(imgInBuffer,imgOutBuffer,imgWidth,imgHeight);
     myImage->writeImage("./../images/lena_Negative.bmp");
 
+
 //    myImage->binarizeImage(imgInBuffer,imgOutBuffer,IMAGE_SIZE_512_BY_512,128);
 //    myImage->writeImage("./../images/lena_binarized.bmp");
 
