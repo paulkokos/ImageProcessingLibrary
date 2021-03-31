@@ -1,0 +1,1 @@
+add_executable(09-OpeningandCopyinganImage "main_03_09.cpp")

@@ -48,21 +48,21 @@ int main()
 //    myImage_color->RGBtoRed(imgInBufferRGB,imgOutBufferRGB,imgWidth,imgHeight);
 //    myImage_color->writeImageRGB("./../images/lena_RED.bmp");
 
-    myImage->saltAndPepper(imgInBuffer,imgHeight,imgWidth,0);
-    myImage->writeImage("./../images/lena_saltAndPepper.bmp");
-
-    myImage->getImageNegative(imgInBuffer,imgOutBuffer,imgWidth,imgHeight);
-    myImage->writeImage("./../images/lena_Negative.bmp");
+//    myImage->saltAndPepper(imgInBuffer,imgHeight,imgWidth,0);
+//    myImage->writeImage("./../images/lena_saltAndPepper.bmp");
+//
+//    myImage->getImageNegative(imgInBuffer,imgOutBuffer,imgWidth,imgHeight);
+//    myImage->writeImage("./../images/lena_Negative.bmp");
 
 
 //    myImage->binarizeImage(imgInBuffer,imgOutBuffer,IMAGE_SIZE_512_BY_512,128);
 //    myImage->writeImage("./../images/lena_binarized.bmp");
 
-    myImage->equalizeHistogram(imgInBuffer, imgOutBuffer, imgHeight, imgWidth);
-    myImage->writeImage("./../images/lena_eqz.bmp");
+//    myImage->equalizeHistogram(imgInBuffer, imgOutBuffer, imgHeight, imgWidth);
+//    myImage->writeImage("./../images/lena_eqz.bmp");
 
-    myImage->minimumFilter(imgInBuffer, imgOutBuffer, imgWidth, imgHeight);
-    myImage->writeImage("./../images/lena_min.bmp");
+//    myImage->minimumFilter(imgInBuffer, imgOutBuffer, imgWidth, imgHeight);
+//    myImage->writeImage("./../images/lena_min.bmp");
 
     cout << "Success !" << endl;
     cout << "Image Height : " << imgHeight << endl;
