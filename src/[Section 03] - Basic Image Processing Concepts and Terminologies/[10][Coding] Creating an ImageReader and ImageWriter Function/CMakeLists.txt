@@ -1,0 +1,1 @@
+add_executable(main_03_10 main_03_10.cpp)
