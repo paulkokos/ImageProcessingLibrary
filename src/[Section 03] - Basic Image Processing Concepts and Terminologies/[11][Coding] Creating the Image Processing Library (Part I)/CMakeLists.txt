@@ -1,0 +1,1 @@
+add_executable(main_03_11 main_03_11.cpp libs/ImageProcessing.cpp libs/ImageProcessing.h)

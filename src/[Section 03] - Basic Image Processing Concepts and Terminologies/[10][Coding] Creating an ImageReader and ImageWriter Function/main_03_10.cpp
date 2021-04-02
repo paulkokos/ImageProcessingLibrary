@@ -26,9 +26,9 @@ int main() {
     unsigned char imgColorTable[BMP_COLOR_TABLE_SIZE];
     unsigned char imgBuffer[CUSTOM_IMG_SIZE];
 
-    const char imgName[] = "C:\\Users\\paulkokos\\CLionProjects\\ImageProcessingLibrary\\images\\input\\kokozidis_0004.tif";
+    const char imgName[] = "C:\\Users\\paulkokos\\CLionProjects\\ImageProcessingLibrary\\images\\input\\lena_color.bmp";
 
-    const char newImgName[] = "C:\\Users\\paulkokos\\CLionProjects\\ImageProcessingLibrary\\images\\output\\kokozidis_04_modified.tif";
+    const char newImgName[] = "C:\\Users\\paulkokos\\CLionProjects\\ImageProcessingLibrary\\images\\output\\lena_color_output.bmp";
 
     imageReader(imgName,&imgHeight,&imgWidth,&imgBitDepth,&imgHeader[0],&imgColorTable[0],&imgBuffer[0]);
 
