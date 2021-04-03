@@ -1,0 +1,1 @@
+add_executable(61_UnderstandingHowImagesAreFormed 61_main.cpp)

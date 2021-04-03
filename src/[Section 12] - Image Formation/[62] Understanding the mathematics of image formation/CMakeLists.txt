@@ -1,0 +1,1 @@
+add_executable(62_UnderstandingTheMathematicsOfImageFormation 62_main.cpp)

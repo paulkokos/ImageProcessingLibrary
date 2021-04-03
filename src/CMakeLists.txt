@@ -6,5 +6,5 @@ add_subdirectory("[Section 03] - Basic Image Processing Concepts and Terminologi
 #add_subdirectory([Section 08] - Image Enhancement Techniques)
 #add_subdirectory([Section 09] - Edge Detection)
 #add_subdirectory([Section 10] - Neighborhood Processing)
-#add_subdirectory([Section 11] - Filter Algorithms)
-#add_subdirectory([Section 12] - Image Formation)
+add_subdirectory("[Section 11] - Filter Algorithms")
+add_subdirectory("[Section 12] - Image Formation")                                      #CHECKED
