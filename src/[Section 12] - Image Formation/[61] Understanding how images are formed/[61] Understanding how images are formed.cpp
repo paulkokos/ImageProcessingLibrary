@@ -10,6 +10,11 @@ int main() {
     unsigned char imgInBuffer[IMAGE_SIZE_512_BY_512];
     unsigned char imgOutBuffer[IMAGE_SIZE_512_BY_512];
 
+
+
+
+
+
     const char imgName[] = "./../images/lena512.bmp";
     const char newImgName[] = "./../images/lena_eqz.bmp";
 
