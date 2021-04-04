@@ -1,0 +1,1 @@
+add_executable(60_DevelopingTheMinimumFilterAlgorithm 60_main.cpp)
