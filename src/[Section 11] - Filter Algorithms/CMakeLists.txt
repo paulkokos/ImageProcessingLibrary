@@ -1,0 +1,6 @@
+add_subdirectory("[55][Coding] Adding Salt and Pepper Noise to an Image")
+add_subdirectory("[56][Coding] Performing High-pass Spatial Filtering")
+add_subdirectory("[57][Coding] Generating Gaussian Noise from an Image")
+add_subdirectory("[58][Coding] Developing the Maximum Filter Algorithm")
+add_subdirectory("[59][Coding] Developing the Median Filter Algorithm")
+add_subdirectory("[60][Coding] Developing the Minimum Filter Algorithm")

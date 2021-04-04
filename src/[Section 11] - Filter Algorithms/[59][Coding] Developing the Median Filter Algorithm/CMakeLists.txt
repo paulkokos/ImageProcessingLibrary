@@ -1,0 +1,1 @@
+add_executable(59_DevelopingTheMedianFilterAlgorithm 59_main.cpp)
