@@ -1,0 +1,1 @@
+add_executable(58_DevelopingTheMaximumFilterAlgorithm 58_main.cpp)
