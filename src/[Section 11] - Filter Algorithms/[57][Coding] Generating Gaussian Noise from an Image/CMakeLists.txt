@@ -1,0 +1,1 @@
+add_executable(57_GeneratingGaussianNoiseFromAnImage 57_main.cpp)
